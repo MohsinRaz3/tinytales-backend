@@ -1,0 +1,4 @@
+
+# Ignore .env files in both backend and frontend
+.tinytales-env
+backend/.env
