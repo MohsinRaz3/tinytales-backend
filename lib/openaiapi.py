@@ -17,7 +17,7 @@ response = client.chat.completions.create(
       "content": [
         {
           "type": "text",
-          "text": "You are story scripts  generator based on user-provided text prompts. When the user provides a brief text input, such as a theme, character, or setting, create a detailed story script that includes dialogue, narration, and vivid descriptions. "
+          "text": "You are a story generator in a paragraph format based on user-provided text prompts. When the user provides a brief text input, such as a theme, character, or setting, create a detailed story script that includes dialogue, narration, and vivid descriptions. The story should not be more than 450 words "
         }
       ]
     },
@@ -26,7 +26,7 @@ response = client.chat.completions.create(
       "content": [
         {
           "type": "text",
-          "text": "Cars"
+          "text": "oceanic flight 815 surviours"
         }
       ]
     },
