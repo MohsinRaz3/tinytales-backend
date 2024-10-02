@@ -1,16 +1,42 @@
-import json
 import os
+import json
+import uuid
 import openai
+import asyncio
+from openai import OpenAI
 from dotenv import load_dotenv
-from pydmodels import StoryModel
-import pprint
+from lib.backblaze import upload_audio
+from lib.elevenlab import audio_generator
+from lib.fluximage import flux_image_gen
 
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
-
 openai.api_key = api_key  
+client = OpenAI()
 
-def story_generator(story_idea, age_group, genre, characters):
+################  GENERATE PROMPTS FLUXAI IMAGES  ##########################
+async def prompt_gen(list_of_prompts:list[str]):
+    system_message = {"role": "system", "content": "You are a helpful assistant that generates image prompts for fluxai."}
+    generated_prompts = []
+
+    for i, prompt_string in enumerate(list_of_prompts, 1):
+        user_message = {
+            "role": "user",
+            "content": f"Here is text string {i}: '{prompt_string}'. Please generate an image prompt based on this string."
+        }
+        completion = client.chat.completions.create(
+            model="gpt-4o-2024-08-06",
+            messages=[
+                system_message,
+                user_message
+            ]
+        )
+        generated_prompt = completion.choices[0].message.content
+        generated_prompts.append(generated_prompt) 
+    return generated_prompts
+
+#######################  GENERATE STORY  #####################
+async def story_generator(story_idea, age_group, genre, characters):
     try:
         response = openai.chat.completions.create(
             model="gpt-4o-2024-08-06", 
@@ -61,7 +87,6 @@ Luna reached into her pocket and pulled out a glowing crystal her grandmother ha
             response_format={"type": "json_object"}
         )
 
-        # Extract the response content
         assistant_response = response.choices[0].message
         if assistant_response:
           response_json = json.loads(assistant_response.content)
@@ -70,16 +95,28 @@ Luna reached into her pocket and pulled out a glowing crystal her grandmother ha
           story_des_1 = response_json['description'][0]['description_1']
           story_des_2 = response_json['description'][1]['description_2']
           story_des_3 = response_json['description'][2]['description_3']
-          return {"story_title" : story_title,"story_des_1":story_des_1,"story_des_2":story_des_2,"story_des_3":story_des_3}
+          #print("01_ story_title", story_title,"story_des_1",story_des_1,"story_des_2",story_des_2,"story_des_3",story_des_3)
+         
+          img_prompt_res =(await prompt_gen(list_of_prompts=[story_des_1,story_des_2,story_des_3]))
+          #print("02_ story prompt ", img_prompt_res)
+          
+          image_results = (await flux_image_gen(img_prompt_res))
+          # print("03_ img result", image_results)
+          
+          result_result = [response_json['description'][0]['description_1'], response_json['description'][1]['description_2'],response_json['description'][2]['description_3']]
+          audio_script  = " ".join(result_result)
+          
+          audio_file = await audio_generator(audio_script)
+          file_name = f"RT{uuid.uuid4()}.mp3"
+          backblaze_bucket = await upload_audio(audio_file,file_name, content_type="audio/mpeg")
+          
+          return {"story_title" : story_title,"story_des_1":story_des_1,"story_des_2":story_des_2,"story_des_3":story_des_3, "flux_images_url" : image_results, "audio_url": backblaze_bucket}
     
         else:
-    
           print(assistant_response.refusal)
-          pprint.pprint(assistant_response)
+          print(assistant_response)
 
     except Exception as e:
         print(f"Error during API call: {e}")
         return None
 
-# Example call to story_generator
-story_generator(story_idea="dino in dino world", age_group="3-5", genre="funny", characters=2)

@@ -9,7 +9,7 @@ from b2sdk.v2 import InMemoryAccountInfo, B2Api
 from fastapi import HTTPException
 
 
-async def upload_b2_storage(audio_data: io.BytesIO, file_name: str, content_type: str):
+async def upload_audio(audio_data: io.BytesIO, file_name: str, content_type: str):
     APPLICATION_KEY_ID_MP = os.getenv('APPLICATION_KEY_ID_MP')
     APPLICATION_KEY_MP = os.getenv('APPLICATION_KEY_MP')
     try:
