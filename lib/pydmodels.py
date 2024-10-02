@@ -1,5 +1,5 @@
 from pydantic import BaseModel, HttpUrl
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 class StoryTitle(BaseModel):
     title: str
@@ -32,15 +32,15 @@ class GeneratedStoryModel(BaseModel):
 # Final Output respone model
 
 class FluxImagesUrl(BaseModel):
-    image_urls: List[HttpUrl]
+    image_urls: Optional[List[HttpUrl]] = None  # Allow None
 
 class StoryResult(BaseModel):
-    story_title: str
-    story_des_1: str
-    story_des_2: str
-    story_des_3: str
-    flux_images_url: FluxImagesUrl
-    audio_url: HttpUrl
+    story_title: Optional[str] = None  # Allow None
+    story_des_1: Optional[str] = None  # Allow None
+    story_des_2: Optional[str] = None  # Allow None
+    story_des_3: Optional[str] = None  # Allow None
+    flux_images_url: Optional[FluxImagesUrl] = None  # Allow None
+    audio_url: Optional[HttpUrl] = None  # Allow None
 
 class StoryResponse(BaseModel):
-    result: StoryResult
+    result: Optional[StoryResult] = None  # Allow None
