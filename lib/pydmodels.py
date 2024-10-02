@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, HttpUrl
 from typing import List, Dict
 
 class StoryTitle(BaseModel):
@@ -25,5 +25,22 @@ class GetStoryData(BaseModel):
     
 class GeneratedStoryModel(BaseModel):
     get_story: GetStoryData
-    get_udio : str
+    get_audio : str
     get_images: list[str] 
+    
+    
+# Final Output respone model
+
+class FluxImagesUrl(BaseModel):
+    image_urls: List[HttpUrl]
+
+class StoryResult(BaseModel):
+    story_title: str
+    story_des_1: str
+    story_des_2: str
+    story_des_3: str
+    flux_images_url: FluxImagesUrl
+    audio_url: HttpUrl
+
+class StoryResponse(BaseModel):
+    result: StoryResult

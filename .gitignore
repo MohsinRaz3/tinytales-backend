@@ -3,3 +3,5 @@
 .tinytales-env
 backend/.env
 .env
+__pycache__
+lib/__pycache__
