@@ -1,8 +1,25 @@
 from fastapi import FastAPI, HTTPException
 from lib.openaiapi import story_generator
 from lib.pydmodels import GetStoryData, StoryResponse
+from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="TinyTales", description="Story generator for kids", version="0.0.1")
+
+app = FastAPI(title="TinyTales", description="Story generator for kids", version="0.0.1", docs_url="/docs",)
+
+origins = [
+    "https://tinytales-lablab.vercel.app",
+    "http://localhost:3000",
+    "http://localhost:3000/",
+]
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[origins],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/", tags=["Story Creation"])
 def root():
