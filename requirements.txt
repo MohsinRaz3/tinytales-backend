@@ -1,0 +1,11 @@
+fastapi==0.111.1
+uvicorn==0.30.4
+requests==2.32.3
+fastapi-cors==0.0.6
+pydantic==1.10.16
+b2sdk==2.5.0
+openai
+elevenlabs
+python-dotenv
+fal_client
+fal-client
