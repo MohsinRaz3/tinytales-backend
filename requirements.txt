@@ -8,3 +8,4 @@ openai
 elevenlabs
 python-dotenv
 fal_client
+fal-client
