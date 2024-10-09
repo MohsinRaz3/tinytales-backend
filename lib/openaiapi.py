@@ -16,13 +16,13 @@ client = OpenAI()
 
 ################  GENERATE PROMPTS FLUXAI IMAGES  ##########################
 async def prompt_gen(list_of_prompts:list[str]):
-    system_message = {"role": "system", "content": "You are a helpful assistant that generates image prompts for fluxai."}
+    system_message = {"role": "system", "content": "You are a helpful assistant that generates image prompts for fluxai.  Image prompt should be under 60 words."}
     generated_prompts = []
 
     for i, prompt_string in enumerate(list_of_prompts, 1):
         user_message = {
             "role": "user",
-            "content": f"Here is text string {i}: '{prompt_string}'. Please generate an image prompt based on this string."
+            "content": f"Here is text string {i}: '{prompt_string}'. Please generate an image prompt based on this string. Image prompt should be under 60 words."
         }
         completion = client.chat.completions.create(
             model="gpt-4o-2024-08-06",
@@ -52,7 +52,7 @@ You are a story generator in a paragraph format based on user-provided text prom
 
 Each story should contain a single title and one script description. The script description should be divided into 3 distinct segments: starter, middle, and ending. These segments should flow seamlessly without any additional titles or headings separating them.
 
-Ensure the story is no more than 200 words, with a balance of dialogue, narration, and vivid imagery to captivate young readers.
+Ensure the story is no more than 600 words, with a balance of dialogue, narration, and vivid imagery to captivate young readers.
 """
                 },
                 {
