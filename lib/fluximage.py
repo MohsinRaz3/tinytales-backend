@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 FAL_KEY = os.getenv('FAL_KEY')
 
-async def flux_image_gen(user_prompts):
+async def flux_image_gen(user_prompts: list[str]):
     try:
         image_urls = []
         for prompt in user_prompts:

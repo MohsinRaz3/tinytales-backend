@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Body
 from lib.openaiapi import story_generator
 from lib.pydmodels import GetStoryData, StoryResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -27,7 +27,7 @@ def root():
 
 
 @app.post("/story_creation", tags=["Story Creation"],response_model=StoryResponse)
-async def generate_story(story_data: GetStoryData):
+async def generate_story(story_data: GetStoryData = Body(...))-> dict:
     try:
         generated_story = await story_generator(
             story_data.story_idea, 
