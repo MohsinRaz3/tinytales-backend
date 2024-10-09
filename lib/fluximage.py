@@ -9,7 +9,7 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-FAL_API_KEY = os.getenv('FAL_KEY')
+FAL_KEY = os.getenv('FAL_KEY')
 
 async def flux_image_gen(user_prompts):
     try:
