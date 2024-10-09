@@ -4,8 +4,7 @@ from lib.openaiapi import story_generator
 from lib.pydmodels import GetStoryData, StoryResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-
-app = FastAPI(title="TinyTales", description="Story generator for kids", version="0.0.1", docs_url="/docs",)
+app = FastAPI(title="TinyTales", description="Story generator for kids", version="0.0.1", docs_url="/docs", redoc_url="/redoc",   openapi_url="/openapi.json" )
 
 # origins = [
 #     "https://tinytales-lablab.vercel.app",
@@ -16,10 +15,10 @@ app = FastAPI(title="TinyTales", description="Story generator for kids", version
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=["*"],  
     allow_credentials=True,
     allow_methods=["*"],  
-    allow_headers=["*"], 
+    allow_headers=["*"],  
 )
 
 @app.get("/", tags=["Story Creation"])
