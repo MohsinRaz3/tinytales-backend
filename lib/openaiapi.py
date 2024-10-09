@@ -97,10 +97,10 @@ Luna reached into her pocket and pulled out a glowing crystal her grandmother ha
           story_des_3 = response_json['description'][2]['description_3']
           print("01_ story_title", story_title,"story_des_1",story_des_1,"story_des_2",story_des_2,"story_des_3",story_des_3)
          
-          img_prompt_res =(await prompt_gen(list_of_prompts=[story_des_1,story_des_2,story_des_3]))
+          img_prompt_res = await prompt_gen(list_of_prompts=[story_des_1,story_des_2,story_des_3])
           print("02_ story prompt ", img_prompt_res)
           
-          image_results = (await flux_image_gen(img_prompt_res))
+          image_results = await flux_image_gen(user_prompts=img_prompt_res)
           print("03_ img result", image_results)
           
           result_result = [response_json['description'][0]['description_1'], response_json['description'][1]['description_2'],response_json['description'][2]['description_3']]
