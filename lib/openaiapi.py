@@ -110,10 +110,9 @@ Luna reached into her pocket and pulled out a glowing crystal her grandmother ha
           file_name = f"RT{uuid.uuid4()}.mp3"
           backblaze_bucket = await upload_audio(audio_file,file_name, content_type="audio/mpeg")
           print("04_ backblaze bucket", backblaze_bucket)
-          return {"story_title" : story_title,"story_des_1":story_des_1,"story_des_2":story_des_2,"story_des_3":story_des_3, "flux_images_url" : image_results, "audio_url": backblaze_bucket}
-    
+          story_output = {"story_title" : story_title,"story_des_1":story_des_1,"story_des_2":story_des_2,"story_des_3":story_des_3, "flux_images_url" : image_results, "audio_url": backblaze_bucket}
+          return story_output
         else:
-          print(assistant_response.refusal)
           print(assistant_response)
 
     except Exception as e:
