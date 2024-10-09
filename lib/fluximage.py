@@ -2,8 +2,14 @@ import os
 import asyncio
 import fal_client
 from fastapi import HTTPException
+import logging
+from dotenv import load_dotenv
 
-FAL_API_KEY = os.getenv('FAL_API')
+load_dotenv()
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+FAL_API_KEY = os.getenv('FAL_KEY')
 
 async def flux_image_gen(user_prompts):
     try:
@@ -27,10 +33,10 @@ async def flux_image_gen(user_prompts):
                 raise HTTPException(status_code=500, detail="No images returned from the API for prompt: {}".format(prompt))
 
             image_urls.append(result['images'][0]['url'])
-            
-            await asyncio.sleep(3)  
+            await asyncio.sleep(3)  # Delay
 
         return {"image_urls": image_urls}  
 
-    except Exception:
+    except Exception as e:
+        logger.error(f"An error occurred: {str(e)}")  # Log the error message
         raise HTTPException(status_code=500, detail="An unexpected error occurs")
