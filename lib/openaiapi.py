@@ -7,7 +7,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from lib.backblaze import upload_audio
 from lib.elevenlab import audio_generator
-from lib.fluximage import subscribe
+from lib.fluximage import flux_image_gen
 
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
@@ -95,12 +95,12 @@ Luna reached into her pocket and pulled out a glowing crystal her grandmother ha
           story_des_1 = response_json['description'][0]['description_1']
           story_des_2 = response_json['description'][1]['description_2']
           story_des_3 = response_json['description'][2]['description_3']
-          print("01_ story_title", story_title,"story_des_1",story_des_1,"story_des_2",story_des_2,"story_des_3",story_des_3)
+        #   print("01_ story_title", story_title,"story_des_1",story_des_1,"story_des_2",story_des_2,"story_des_3",story_des_3)
          
           img_prompt_res = await prompt_gen(list_of_prompts=[story_des_1,story_des_2,story_des_3])
-          print("02_ story prompt ", img_prompt_res)
+        #   print("02_ story prompt ", img_prompt_res)
           
-          image_results = await subscribe(img_prompt_res)
+          image_results = await flux_image_gen(img_prompt_res)
           print("03_flux_image",image_results)
            
           result_result = [response_json['description'][0]['description_1'], response_json['description'][1]['description_2'],response_json['description'][2]['description_3']]
@@ -109,7 +109,7 @@ Luna reached into her pocket and pulled out a glowing crystal her grandmother ha
           audio_file = await audio_generator(audio_script)
           file_name = f"RT{uuid.uuid4()}.mp3"
           backblaze_bucket = await upload_audio(audio_file,file_name, content_type="audio/mpeg")
-          
+          print("04_ backblaze bucket", backblaze_bucket)
           return {"story_title" : story_title,"story_des_1":story_des_1,"story_des_2":story_des_2,"story_des_3":story_des_3, "flux_images_url" : image_results, "audio_url": backblaze_bucket}
     
         else:
