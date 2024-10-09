@@ -29,18 +29,17 @@ class GeneratedStoryModel(BaseModel):
     get_images: list[str] 
     
     
-# Final Output respone model
 
 class FluxImagesUrl(BaseModel):
-    image_urls: Optional[List[HttpUrl]] = None  # Allow None
+    image_urls: Optional[List[HttpUrl]] = None  
 
 class StoryResult(BaseModel):
-    story_title: Optional[str] = None  # Allow None
-    story_des_1: Optional[str] = None  # Allow None
-    story_des_2: Optional[str] = None  # Allow None
-    story_des_3: Optional[str] = None  # Allow None
-    flux_images_url: Optional[FluxImagesUrl] = None  # Allow None
-    audio_url: Optional[HttpUrl] = None  # Allow None
+    story_title: Optional[str] = None  
+    story_des_1: Optional[str] = None  
+    story_des_2: Optional[str] = None  
+    story_des_3: Optional[str] = None 
+    flux_images_url: Optional[FluxImagesUrl] = None  
+    audio_url: Optional[HttpUrl] = None 
 
 class StoryResponse(BaseModel):
-    result: Optional[StoryResult] = None  # Allow None
+    result: Optional[StoryResult] = None  
