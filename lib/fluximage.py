@@ -1,5 +1,10 @@
 import fal_client
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
+
+FAL_API_KEY = os.getenv('FAL_API')
 async def subscribe(prompts):
     image_urls = []
 
