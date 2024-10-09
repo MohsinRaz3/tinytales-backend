@@ -5,7 +5,7 @@ from fastapi import HTTPException
 
 FAL_API_KEY = os.getenv('FAL_API')
 
-async def flux_image_gen(user_prompts: list[str]):
+async def flux_image_gen(user_prompts):
     try:
         image_urls = []
         for prompt in user_prompts:
