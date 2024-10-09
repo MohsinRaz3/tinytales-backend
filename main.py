@@ -26,7 +26,7 @@ def root():
     return "tiny tales"
 
 
-@app.post("/story_creation", tags=["Story Creation"])
+@app.post("/story_creation", tags=["Story Creation"],response_model=StoryResponse)
 async def generate_story(story_data: GetStoryData):
     try:
         generated_story = await story_generator(
