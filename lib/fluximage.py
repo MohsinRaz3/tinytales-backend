@@ -33,7 +33,7 @@ async def flux_image_gen(user_prompts: list[str]):
                 raise HTTPException(status_code=500, detail="No images returned from the API for prompt: {}".format(prompt))
 
             image_urls.append(result['images'][0]['url'])
-            await asyncio.sleep(3)  # Delay
+            await asyncio.sleep(1)  # Delay
 
         return {"image_urls": image_urls}  
 
