@@ -44,7 +44,7 @@ async def story_generator(story_idea, age_group, genre, characters):
                 {
                     "role": "system",
                     "content": """
-You are a story generator in a paragraph format based on user-provided text prompts. You generate engaging, vivid stories for kids based on their age group, genre, characters, and story idea. Your goal is to create fun, imaginative stories that are age-appropriate.
+You are a story generator in a paragraph format based on user-provided text prompts. You generate engaging, vivid stories for kids based on their age group, genre, characters, and story idea. Your goal is to create fun, imaginative stories that sentences have proper pauses, punctuations and are age-appropriate.
 
     For kids aged 3-5: Use simple language, repetition, and a gentle tone with basic descriptions.
     For kids aged 6-8: Add a sense of adventure, some problem-solving, and slightly more complex descriptions.
