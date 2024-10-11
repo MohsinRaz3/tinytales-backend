@@ -54,6 +54,8 @@ The following flowchart outlines the core process of TinyTales:
 <Image src="assets/tinytales-idea.png" alt="TinyTales UI" width={800} height={600} />
 <Image src="assets/tiny-tales-ui.png" alt="TinyTales UI" width={800} height={600} />
 
+For the frontend repository of TinyTales, visit [tinytales-frontend](https://github.com/MohsinRaz3/tinytales-frontend).
+
 ## Future Enhancements
 
 - **Email Notification Integration**: Sending stories and thumbnails to users via email.
